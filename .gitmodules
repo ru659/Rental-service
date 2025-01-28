@@ -1,0 +1,4 @@
+
+[submodule "Rental-service"]
+    path = Rental-service
+    url = https://github.com/ru659/Rental-service.git
