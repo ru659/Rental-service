@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Dress Website</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #cookie-banner {
+            display: none;
+        }
+    </style>
+
+<script>
+    // Initialize consent mode
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
+    });
+</script>
+
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,7 +29,19 @@
     })(window,document,'script','dataLayer','GTM-KWK3X2ST');</script>
     <!-- End Google Tag Manager -->
 </head>
+
+
 <body class="bg-gray-100 text-gray-800">
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 flex justify-between items-center">
+        <span>We use cookies to improve your experience. By using our site, you agree to our use of cookies.</span>
+        <div>
+            <button id="accept-cookies" class="bg-green-500 text-white px-4 py-2 rounded mr-2">Accept</button>
+            <button id="deny-cookies" class="bg-red-500 text-white px-4 py-2 rounded">Deny</button>
+        </div>
+    </div>
+
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWK3X2ST"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -76,7 +104,36 @@
                 alert(`Thank you for signing up with ${email}`);
             }
         }
-    </script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookiesButton = document.getElementById('accept-cookies');
+        const denyCookiesButton = document.getElementById('deny-cookies');
+
+        // Check if cookies are accepted or denied
+        if (!localStorage.getItem('cookiesAccepted') && !localStorage.getItem('cookiesDenied')) {
+            cookieBanner.style.display = 'flex';
+        }
+
+        // Handle cookie acceptance
+        acceptCookiesButton.addEventListener('click', function() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.style.display = 'none';
+            // Activate Google Tag Manager consent mode
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ 'event': 'consent', 'consentGranted': true });
+        });
+
+        // Handle cookie denial
+        denyCookiesButton.addEventListener('click', function() {
+            localStorage.setItem('cookiesDenied', 'true');
+            cookieBanner.style.display = 'none';
+            // Activate Google Tag Manager consent mode
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ 'event': 'consent', 'consentGranted': false});
+        });
+    });
+</script>
 
 </body>
 </html>
